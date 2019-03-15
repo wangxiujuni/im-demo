@@ -1,31 +1,84 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/* css reset */
+body {
+  margin: 0;
+  font: 16px/22px Arial, "微软雅黑";
+  color: #333;
 }
-#nav {
-  padding: 30px;
+header,
+footer,
+section,
+article,
+aside,
+nav,
+figure {
+  display: block;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+p,
+dl,
+dd {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-size: 100%;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+img {
+  border: none;
+}
+a {
+  color: #21a557;
+  cursor: pointer;
+  text-decoration: none;
+}
+a:active,
+a:hover {
+  outline: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: normal;
+}
+em,
+i {
+  font-style: normal;
+}
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-spacing: 0;
+}
+th,
+td {
+  padding: 0;
+}
+button,
+input {
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
 }
 </style>
