@@ -6,5 +6,5 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   API_HOSTNAME = 'http://localhost:3000'
 }
-export const LOGIN_SIGNIN = `${API_HOSTNAME}/auth/signin`
-export const LOGIN_SIGNUP = `${API_HOSTNAME}/auth/signup`
+export const USER_SIGNIN = `${API_HOSTNAME}/auth/signin`
+export const USER_SIGNUP = `${API_HOSTNAME}/auth/signup`

@@ -1,6 +1,6 @@
 const myFetch = {
   install(Vue) {
-    Vue.prototype.fetch = {
+    Vue.prototype.$fetch = {
       post(url, body) {
         return fetch(url, {
           headers: { 'Content-Type': 'application/json' },
@@ -15,7 +15,7 @@ const myFetch = {
           method: 'get',
           mode: 'cors',
           credentials: 'include'
-        }).then(res => res.json()).then(res => JSON.parse(res))
+        }).then(res => res.json())
       }
     }
   }

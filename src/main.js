@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-// import myfetch from './utils/myFetch'
+import myfetch from './utils/myFetch'
 // import 'promise-polyfill/src/polyfill'
 
 Vue.config.productionTip = false
-// Vue.use(myfetch)
+Vue.use(myfetch)
 
 
 new Vue({
