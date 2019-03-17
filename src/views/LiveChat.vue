@@ -1,12 +1,16 @@
 <template>
   <div>
-爷来啦
+    <ChatNav></ChatNav>
   </div>
 </template>
 
 <script>
-export default {
+import ChatNav from '@/components/Chat/ChatNav.vue'
 
+export default {
+  components: {
+    ChatNav
+  }
 }
 </script>
 
