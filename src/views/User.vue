@@ -66,7 +66,7 @@ export default {
 .user-window-main-toggle {
   position: absolute;
   font-size: 12px;
-  color:rgb(87, 107,149);
-  bottom:0;
+  color: rgb(87, 107, 149);
+  bottom: 0;
 }
 </style>
