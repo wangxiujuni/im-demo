@@ -1,7 +1,7 @@
 <template>
-  <div class="user-input">
+  <div :class="$style.wrapper">
     <input
-      class="user-input-base"
+      :class="$style.input"
       :type="type"
       :value="value"
       :placeholder="placeholder"
@@ -9,7 +9,7 @@
       autocomplete="off"
       @input="$emit('input',$event.target.value)"
     >
-    <span class="user-input-warn">{{warn}}</span>
+    <span :class="$style.warn">{{warn}}</span>
   </div>
 </template>
 
@@ -36,11 +36,11 @@ export default {
 }
 </script>
 
-<style scoped>
-.user-input {
+<style module lang="postcss">
+.wrapper {
   position: relative;
 }
-.user-input-base {
+.input {
   display: block;
   width: 80%;
   height: 4em;
@@ -48,7 +48,7 @@ export default {
   border-radius: 0.5em;
   border: thin solid gray;
 }
-.user-input-warn {
+.warn {
   position: absolute;
   color:red;
   font-size: 13px;

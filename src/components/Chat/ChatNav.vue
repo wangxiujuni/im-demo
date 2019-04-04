@@ -1,19 +1,19 @@
 <template>
-  <div class="chat-nav">
-    <label for="chat-nav-sms">
-      <input id="chat-nav-sms" type="radio" name="icon" checked>
-      <svg class="chat-nav-icon" aria-hidden="true">
+  <div :class="$style.wrapper">
+    <label>
+      <input :class="$style.message" type="radio" name="icon" checked>
+      <svg :class="$style.icon" aria-hidden="true">
         <use xlink:href="#icon-icon_sms"></use>
       </svg>
     </label>
 
-    <label for="chat-nav-signal">
-      <input id="chat-nav-signal" type="radio" name="icon">
-      <svg class="chat-nav-icon" aria-hidden="true">
+    <label>
+      <input :class="$style.friend" type="radio" name="icon">
+      <svg :class="$style.icon" aria-hidden="true">
         <use xlink:href="#icon-icon_signal"></use>
       </svg>
     </label>
-    <div class="user-icon"></div>
+    <div :class="$style.avatar"></div>
   </div>
 </template>
 
@@ -27,22 +27,22 @@ export default {
 }
 </script>
 
-<style scoped>
-.chat-nav {
+<style module lang="postcss">
+.wrapper {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 4em;
   background-color: rgb(126, 149, 192);
 }
-.chat-nav-icon {
+.icon {
   width: 100%;
   height: 3em;
   padding: 1em 0;
   fill: white;
   overflow: hidden;
 }
-.user-icon {
+.avatar {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -51,17 +51,17 @@ export default {
   border-radius: 50%;
   background: url('../../assets/userIcon.jpg');
 }
-.user-icon:hover {
+.avatar:hover {
   border: white 2px solid;
 }
 
-#chat-nav-sms,
-#chat-nav-signal {
+.message,
+.friend {
   position: absolute;
   clip: rect(0, 0, 0, 0);
 }
-#chat-nav-sms:checked + .chat-nav-icon,
-#chat-nav-signal:checked + .chat-nav-icon {
+.message:checked + .icon,
+.friend:checked + .icon {
   background-color: rgb(91, 107, 138);
 }
 </style>

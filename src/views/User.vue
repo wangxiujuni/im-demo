@@ -1,8 +1,8 @@
 <template>
-  <div class="user-window">
-    <div class="user-window-main">
+  <div :class="$style.window">
+    <div :class="$style.form">
       <component :is="renderComponent" @toggle-to-signin="toggleToSignIn"></component>
-      <a class="user-window-main-toggle" @click.prevent="toggleComponents">{{renderContent}}</a>
+      <a :class="$style.toggle" @click.prevent="toggleComponents">{{renderContent}}</a>
     </div>
   </div>
 </template>
@@ -44,15 +44,15 @@ export default {
 }
 </script>
 
-<style scoped>
-.user-window {
+<style module lang="postcss">
+.window {
   height: 100vh;
   font-size: 19px;
   line-height: 24px;
   background-image: url("../assets/UserBackground.jpg");
   background-repeat: no-repeat;
 }
-.user-window-main {
+.form {
   position: fixed;
   background-color: white;
   width: 18em;
@@ -63,7 +63,7 @@ export default {
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
 }
-.user-window-main-toggle {
+.toggle {
   position: absolute;
   font-size: 12px;
   color: rgb(87, 107, 149);

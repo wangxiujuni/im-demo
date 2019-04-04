@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="usersignin-title">用户名密码登录</h1>
+    <h1 :class="$style.title">用户名密码登录</h1>
     <UserInput
       v-model="form.username"
       type="text"
@@ -107,8 +107,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.usersignin-title {
+<style module lang="postcss">
+.title {
   margin: 2.5em auto;
   text-align: center;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-aside" :style="{width:chatAsideStyle}">
+  <div :class="$style.aside" :style="{width:chatAsideStyle}">
 
   </div>
 </template>
@@ -15,8 +15,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.chat-aside{
+<style module lang="postcss">
+.aside{
   float: left;
   height: 100vh;
   min-width: 13em;

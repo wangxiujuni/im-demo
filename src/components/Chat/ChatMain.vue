@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-main">
+  <div :class="$style.main">
 
   </div>
 </template>
@@ -9,8 +9,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.chat-main{
+<style module lang="postcss">
+.main{
   height: 100vh;
 
 

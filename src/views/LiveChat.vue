@@ -2,7 +2,7 @@
   <div>
     <ChatNav></ChatNav>
     <ChatAside :chatAsideStyle="chatAsideStyle"></ChatAside>
-    <span class="drag-border" v-drag draggable="false"></span>
+    <span :class="$style.drag_border" v-drag draggable="false"></span>
     <ChatMain></ChatMain>
   </div>
 </template>
@@ -44,8 +44,8 @@ directives: {
 } }
 </script>
 
-<style scoped>
-.drag-border {
+<style module lang="postcss">
+.drag_border {
   float: left;
   height: 100vh;
   width: 2px;

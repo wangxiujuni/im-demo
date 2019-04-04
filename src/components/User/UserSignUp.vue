@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="usersignup-title">注册</h1>
+    <h1 :class="$style.title">注册</h1>
     <UserInput
       v-model="form.username"
       type="text"
@@ -130,8 +130,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.usersignup-title {
+<style module lang="postcss">
+.title {
   margin: 1.5em auto;
   text-align: center;
 }

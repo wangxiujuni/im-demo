@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button class="user-button-base" type="button" @click="$emit('click')">{{buttonContent}}</button>
-    <div class="user-button-prompt">{{warn}}</div>
+    <button :class="$style.button" type="button" @click="$emit('click')">{{buttonContent}}</button>
+    <div :class="$style.prompt">{{warn}}</div>
   </div>
 </template>
 
@@ -20,8 +20,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.user-button-base {
+<style module lang="postcss">
+.button {
   display: block;
   width: 5em;
   height: 2em;
@@ -31,13 +31,16 @@ export default {
   border-radius: 0.5em;
   background-color: rgb(126, 149, 192);
 }
-.user-button-base:hover {
+.button:hover {
   background-color: rgb(91, 107, 138);
 }
-.user-button-prompt{
+.prompt{
   text-align: center;
   margin-top:-0.5em
 }
+
+</style>
+<style scoped>
 .success {
   color: green;
 }

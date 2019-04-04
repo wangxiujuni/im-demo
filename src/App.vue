@@ -4,8 +4,9 @@
   </div>
 </template>
 
-<style>
+<style module lang="postcss">
 /* css reset */
+
 body {
   margin: 0;
   font: 16px/22px Arial, "微软雅黑";
