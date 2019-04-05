@@ -5,7 +5,7 @@
       <use xlink:href="#icon-close-circle-fill"></use>
     </svg>
     <h1 :class="$style.title">通信工程</h1>
-    <div :class="$style.message">科技创新是啥</div>
+    <div :class="$style.message">科技创新wowowoowowowow是啥</div>
   </div>
 </template>
 
@@ -35,6 +35,10 @@ export default {
 .message {
   font-size: 13px;
   color: rgb(137, 137, 137);
+  white-space: nowrap
+}
+.title, .message{
+  user-select: none;
 }
 .icon {
   float: right;
