@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ChatNav></ChatNav>
-    <ChatAside :chatAsideStyle="chatAsideStyle"></ChatAside>
+    <ChatNav @nav-change="navNumber=$event"></ChatNav>
+    <ChatAside :chatAsideStyle="chatAsideStyle" :navNumber="navNumber"></ChatAside>
     <span :class="$style.drag_border" v-drag draggable="false"></span>
     <ChatMain></ChatMain>
   </div>
@@ -18,11 +18,6 @@ export default { components: {
   ChatMain
 },
 
-data() {
-  return {
-    chatAsideStyle: '300px'
-  }
-},
 directives: {
   drag: { bind(el, binding, vNode) {
     el.onmousedown = () => {
@@ -41,6 +36,13 @@ directives: {
       }
     }
   } }
+},
+
+data() {
+  return {
+    chatAsideStyle: '300px',
+    navNumber: 1
+  }
 } }
 </script>
 

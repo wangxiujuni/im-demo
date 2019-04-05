@@ -1,14 +1,14 @@
 <template>
-  <div :class="$style.wrapper">
+  <div :class="$style.wrapper" @change="$emit('nav-change',navNumber)">
     <label>
-      <input :class="$style.message" type="radio" name="icon" checked>
+      <input :class="$style.message" v-model="navNumber" type="radio" name="icon" :value="1">
       <svg :class="$style.icon" aria-hidden="true">
         <use xlink:href="#icon-icon_sms"></use>
       </svg>
     </label>
 
     <label>
-      <input :class="$style.friend" type="radio" name="icon">
+      <input :class="$style.friend" v-model="navNumber" type="radio" name="icon" :value="2">
       <svg :class="$style.icon" aria-hidden="true">
         <use xlink:href="#icon-icon_signal"></use>
       </svg>
@@ -18,10 +18,12 @@
 </template>
 
 <script>
+
+
 export default {
   data() {
     return {
-
+      navNumber: 1
     }
   }
 }
@@ -49,7 +51,7 @@ export default {
   width: 4em;
   height: 4em;
   border-radius: 50%;
-  background: url('../../assets/userIcon.jpg');
+  background: url('@/assets/userIcon.jpg');
 }
 .avatar:hover {
   border: white 2px solid;
