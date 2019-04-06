@@ -1,13 +1,24 @@
 <template>
   <div>
-    <textarea :class="$style.input" name id rows="10" autofocus draggable="false">ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg</textarea>
-    <button :class="$style.button">发送</button>
+    <textarea v-model="inputContent" :class="$style.input" rows="10" autofocus spellcheck="false" @keyup.shift.enter="send"></textarea>
+    <button :class="$style.button" title="使用shift+enter快捷发送" @click="send">发送</button>
   </div>
 </template>
 
 <script>
 export default {
-
+  data() {
+    return {
+      inputContent: ''
+    }
+  },
+  methods: {
+    send() {
+      console.log(this.inputContent)
+      this.$emit('send-content', this.inputContent)
+      this.inputContent = ''
+    }
+  }
 }
 </script>
 
@@ -16,6 +27,7 @@ export default {
   position: absolute;
   width: 99%;
   bottom: 0;
+  left: 0;
   border-top: rgb(126, 149, 192) solid 2px;
   border-right: transparent;
   border-left: transparent;
