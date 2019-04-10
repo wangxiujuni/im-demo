@@ -8,3 +8,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 export const USER_SIGNIN = `${API_HOSTNAME}/auth/signin`
 export const USER_SIGNUP = `${API_HOSTNAME}/auth/signup`
+export const CHAT_MESSAGE = 'ws://localhost:3000/message'

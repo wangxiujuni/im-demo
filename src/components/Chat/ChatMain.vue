@@ -18,7 +18,6 @@ export default {
 .main {
   position: relative;
   height: 100vh;
-  padding-right: 1em;
   overflow: hidden;
 }
 </style>

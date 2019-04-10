@@ -1,15 +1,15 @@
 <template>
   <div>
-    <ChatAsideItem></ChatAsideItem>
+    <ChatAsideMessageItem></ChatAsideMessageItem>
   </div>
 </template>
 
 <script>
-import ChatAsideItem from './ChatAsideItem'
+import ChatAsideMessageItem from './ChatAsideMessageItem'
 
 export default {
   components: {
-    ChatAsideItem
+    ChatAsideMessageItem
   }
 }
 </script>

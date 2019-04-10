@@ -13,7 +13,10 @@ export default {
     }
   },
   methods: {
-    send() {
+    send(e) {
+      if (e.type === 'keyup') {
+        this.inputContent = this.inputContent.slice(0, this.inputContent.length - 1)
+      }
       console.log(this.inputContent)
       this.$emit('send-content', this.inputContent)
       this.inputContent = ''
