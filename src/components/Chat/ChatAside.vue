@@ -1,15 +1,18 @@
 <template>
   <div :class="$style.aside" :style="{width:chatAsideStyle}">
     <ChatAsideMessage v-show="navNumber===1"></ChatAsideMessage>
+    <ChatAsideFriend v-show="navNumber===2"></ChatAsideFriend>
   </div>
 </template>
 
 <script>
 import ChatAsideMessage from './ChatAsideMessage'
+import ChatAsideFriend from './ChatAsideFriend'
 
 export default {
   components: {
-    ChatAsideMessage
+    ChatAsideMessage,
+    ChatAsideFriend
   },
   props: {
     chatAsideStyle: {

@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.main">
-    <ChatMainChatting></ChatMainChatting>
+    <ChatMainChatting v-show="navNumber===1"></ChatMainChatting>
   </div>
 </template>
 
@@ -10,6 +10,11 @@ import ChatMainChatting from './ChatMainChatting'
 export default {
   components: {
     ChatMainChatting
+  },
+  props: {
+    navNumber: {
+      type: Number
+    }
   }
 }
 </script>

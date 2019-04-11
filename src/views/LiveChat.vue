@@ -3,7 +3,7 @@
     <ChatNav @nav-change="navNumber=$event"></ChatNav>
     <ChatAside :chatAsideStyle="chatAsideStyle" :navNumber="navNumber"></ChatAside>
     <span :class="$style.drag_border" v-drag draggable="false"></span>
-    <ChatMain></ChatMain>
+    <ChatMain :navNumber="navNumber"></ChatMain>
   </div>
 </template>
 
@@ -53,6 +53,7 @@ data() {
   width: 2px;
   box-sizing: content-box;
   padding: 0 4px;
+  margin:auto -4px;
   background-clip: content-box;
   background-color: rgb(126, 149, 192);
   cursor: col-resize;

@@ -64,6 +64,6 @@ export default {
 }
 .message:checked + .icon,
 .friend:checked + .icon {
-  background-color: rgb(91, 107, 138);
+  background: rgb(91, 107, 138);
 }
 </style>
