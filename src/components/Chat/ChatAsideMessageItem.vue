@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.wrapper">
     <span :class="$style.avatar"></span>
-    <svg :class="$style.icon" aria-hidden="true">
+    <svg :class="$style.icon" aria-hidden="true" @click="$emit('delete')">
       <use xlink:href="#icon-close-circle-fill"></use>
     </svg>
     <h1 :class="$style.title">通信工程</h1>

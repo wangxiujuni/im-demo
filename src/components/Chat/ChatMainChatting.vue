@@ -15,7 +15,7 @@
 <script>
 import ChatMainChattingInput from './ChatMainChattingInput'
 import ChatMainChattingSession from './ChatMainChattingSession'
-import { CHAT_MESSAGE } from '@/constants/api.js'
+import { CHAT_MESSAGE } from '@/api/api.js'
 
 export default {
   components: {

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { USER_SIGNIN } from '@/constants/api'
+import { USER_SIGNIN } from '@/api/api'
 import UserInput from './UserInput'
 import UserButton from './UserButton'
 

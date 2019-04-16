@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { USER_SIGNUP } from '@/constants/api'
+import { USER_SIGNUP } from '@/api/api'
 import UserInput from './UserInput'
 import UserButton from './UserButton'
 
@@ -115,7 +115,7 @@ export default {
     },
     goSubmit() {
       if (this.isValidation) {
-        this.$fetch.post(USER_SIGNUP, this.form).then(res => {
+        this.$fetch.post(USER_SIGNUP, { ...this.form, petname: this.form.username }).then(res => {
           this.buttonWarnCode = res.code
           this.buttonWarn = res.message
           if (res.code === 0) {

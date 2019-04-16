@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.wrapper" @change="$emit('nav-change',navNumber)">
+  <div :class="$style.wrapper" @change="$emit('nav-change',navNumber)" @mouseleave="showOptions=false">
     <label>
       <input :class="$style.message" v-model="navNumber" type="radio" name="icon" :value="1">
       <svg :class="$style.icon" aria-hidden="true">
@@ -13,19 +13,36 @@
         <use xlink:href="#icon-icon_signal"></use>
       </svg>
     </label>
-    <div :class="$style.avatar"></div>
+    <div :class="$style.avatar" @click="showOptions=!showOptions" :style="selected"></div>
+    <ChatNavOptions v-if="showOptions" @click="showOptions=!showOptions"></ChatNavOptions>
   </div>
 </template>
 
 <script>
-
+import ChatNavOptions from './ChatNavOptions.vue'
+import { GET_DATA } from '@/api/api'
 
 export default {
+  components: {
+    ChatNavOptions
+  },
   data() {
     return {
-      navNumber: 1
+      navNumber: 1,
+      showOptions: false
     }
+  },
+  computed: {
+    selected() {
+      return this.showOptions ? 'border: white 2px solid' : ''
+    }
+  },
+  mounted() {
+    this.$fetch.get(GET_DATA).then(res => {
+      console.log(res)
+    })
   }
+
 }
 </script>
 
@@ -51,7 +68,7 @@ export default {
   width: 4em;
   height: 4em;
   border-radius: 50%;
-  background: url('@/assets/userIcon.jpg');
+  background: url("@/assets/userIcon.jpg");
 }
 .avatar:hover {
   border: white 2px solid;
