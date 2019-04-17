@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.wrapper" @click="$emit('click')">
-    <div>个人资料</div>
+    <div :class="$style.name">{{$store.getters.userData.petname}}</div>
     <div>修改密码</div>
     <div>登出</div>
   </div>
@@ -13,6 +13,7 @@ export default {
 </script>
 
 <style module lang="postcss">
+
 .wrapper {
   position: absolute;
   width: 5em;
@@ -26,6 +27,9 @@ export default {
   background: rgb(126, 149, 192);
 }
 .wrapper div {
-  padding-bottom: 1em;
+  padding: 1em 0;
+}
+.name{
+  font-weight: 600
 }
 </style>

@@ -11,6 +11,7 @@
 import ChatNav from '@/components/Chat/ChatNav.vue'
 import ChatAside from '@/components/Chat/ChatAside.vue'
 import ChatMain from '@/components/Chat/ChatMain.vue'
+import { LOAD_USER } from '@/components/Chat/module.js'
 
 export default { components: {
   ChatNav,
@@ -43,6 +44,9 @@ data() {
     chatAsideStyle: '300px',
     navNumber: 1
   }
+},
+mounted() {
+  this.$store.dispatch(LOAD_USER)
 } }
 </script>
 

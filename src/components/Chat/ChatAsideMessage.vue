@@ -1,15 +1,19 @@
 <template>
   <div>
-    <ChatAsideMessageItem></ChatAsideMessageItem>
+    <ChatAsideItem v-slot="slotProps">
+      <svg  :class="slotProps.moduleStyle.icon" aria-hidden="true">
+        <use xlink:href="#icon-close-circle-fill"></use>
+      </svg>
+    </ChatAsideItem>
   </div>
 </template>
 
 <script>
-import ChatAsideMessageItem from './ChatAsideMessageItem'
+import ChatAsideItem from './ChatAsideItem'
 
 export default {
   components: {
-    ChatAsideMessageItem
+    ChatAsideItem
   }
 }
 </script>

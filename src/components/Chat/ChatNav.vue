@@ -13,14 +13,14 @@
         <use xlink:href="#icon-icon_signal"></use>
       </svg>
     </label>
-    <div :class="$style.avatar" @click="showOptions=!showOptions" :style="selected"></div>
+    <div :class="$style.avatar" :style="[selected,$store.getters.myAvatarStyle]" @click="showOptions=!showOptions" ></div>
     <ChatNavOptions v-if="showOptions" @click="showOptions=!showOptions"></ChatNavOptions>
   </div>
 </template>
 
 <script>
 import ChatNavOptions from './ChatNavOptions.vue'
-import { GET_DATA } from '@/api/api'
+
 
 export default {
   components: {
@@ -34,13 +34,9 @@ export default {
   },
   computed: {
     selected() {
-      return this.showOptions ? 'border: white 2px solid' : ''
+      return this.showOptions ? { border: 'white 2px solid' } : ''
     }
-  },
-  mounted() {
-    this.$fetch.get(GET_DATA).then(res => {
-      console.log(res)
-    })
+
   }
 
 }
@@ -68,7 +64,6 @@ export default {
   width: 4em;
   height: 4em;
   border-radius: 50%;
-  background: url("@/assets/userIcon.jpg");
 }
 .avatar:hover {
   border: white 2px solid;
