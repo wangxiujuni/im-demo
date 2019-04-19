@@ -11,9 +11,9 @@ export default {
   components: {
     ChatMainChatting
   },
-  props: {
-    navNumber: {
-      type: Number
+  computed: {
+    navNumber() {
+      return this.$store.state.Chat.navNumber
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.wrapper" @change="$emit('nav-change',navNumber)" @mouseleave="showOptions=false">
+  <div :class="$style.wrapper" @change="setNavNumber" @mouseleave="showOptions=false">
     <label>
       <input :class="$style.message" v-model="navNumber" type="radio" name="icon" :value="1">
       <svg :class="$style.icon" aria-hidden="true">
@@ -20,6 +20,7 @@
 
 <script>
 import ChatNavOptions from './ChatNavOptions.vue'
+import { SET_NAVNUMBER } from './module'
 
 
 export default {
@@ -33,8 +34,24 @@ export default {
     }
   },
   computed: {
+    // 保持选中状态的边框
     selected() {
       return this.showOptions ? { border: 'white 2px solid' } : ''
+    },
+    // 当state改变时改变nav样式
+    stateNavNumber() {
+      return this.$store.state.Chat.navNumber
+    }
+
+  },
+  watch: {
+    stateNavNumber(newValue) {
+      this.navNumber = newValue
+    }
+  },
+  methods: {
+    setNavNumber() {
+      this.$store.commit(SET_NAVNUMBER, this.navNumber)
     }
 
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 :class="$style.title">通信工程</h1>
+    <h1 :class="$style.title">{{friendData.petname}}</h1>
     <main ref="main" :class="$style.main">
       <ChatMainChattingSession
         v-for="(item,index) in renderSessions"
@@ -24,16 +24,15 @@ export default {
   },
   data() {
     return {
-      sessionData: {
-        content: '',
-        sendTarget: 'baba',
-        isMine: true
-      },
       renderSessions: []
 
     }
   },
-
+  computed: {
+    friendData() {
+      return this.$store.state.Chat.messagesRender[this.$store.state.Chat.messageClickIndex]
+    }
+  },
   mounted() {
     this.ws = new WebSocket(CHAT_MESSAGE)
     this.ws.onmessage = data => {
@@ -43,8 +42,12 @@ export default {
   methods: {
     // 渲染列表
     pushSessions(data) {
-      this.sessionData.content = data
-      this.renderSessions.push({ ...this.sessionData })
+      const sessionData = {
+        content: data,
+        sendTarget: this.friendData.username,
+        isMine: true
+      }
+      this.renderSessions.push({ ...sessionData })
     },
     // 控制滚动
     scrollPosition() {
@@ -52,31 +55,7 @@ export default {
     },
     // 发送websocket
     sendMessage() {
-      console.log(this.ws.readyState)
-      if (this.ws.readyState === 3) {
-        console.log(11111)
 
-        this.ws = new WebSocket(CHAT_MESSAGE)
-        this.ws.onmessage = data => {
-          console.log(data)
-        }
-      }
-      console.log(this.ws.readyState)
-      const WSsend = new Promise(resolve => {
-        const timerId = setInterval(() => {
-          console.log('diidai')
-
-          if (this.ws.readyState === 1) {
-            clearInterval(timerId)
-            resolve()
-          }
-        }, 200)
-      })
-      WSsend.then(() => {
-        console.log(99999999)
-
-        this.ws.send(JSON.stringify(this.sessionData))
-      })
     }
   }
 }
@@ -89,9 +68,8 @@ export default {
   font-size: 20px;
 }
 .main {
-  padding:1em;
+  padding: 1em;
   overflow-x: auto;
   height: calc(100vh - 64px - 212px - 2em);
-
 }
 </style>

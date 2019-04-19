@@ -8,11 +8,12 @@
       :avatarUrl="friend.avatarUrl"
       :username="friend.username"
       :key="index"
+      @click.native="sendMessage(friend)"
     >
       <svg
         :class="slotProps.moduleStyle.icon"
         aria-hidden="true"
-        @click="confirmDelete({petname:friend.petname,username:friend.username})"
+        @click.stop="confirmDelete({petname:friend.petname,username:friend.username})"
       >
         <use xlink:href="#icon-close-circle-fill"></use>
       </svg>
@@ -32,7 +33,7 @@
 import ChatAsideItem from './ChatAsideItem'
 import BaseAlert from '@/common/BaseAlert'
 import { FRIEND_DELETE } from '@/api/api'
-import { LOAD_USER } from './module'
+import { LOAD_USER, ADD_MESSAGE, SET_NAVNUMBER } from './module'
 
 
 export default {
@@ -55,6 +56,16 @@ export default {
     confirmDelete(payload) {
       this.dialogData = payload
       this.isDialogRender = true
+    },
+    sendMessage(friend) {
+      this.$store.commit(SET_NAVNUMBER, 1)
+      const { messagesRender } = this.$store.state.Chat
+      for (let i = 0; i < messagesRender.length; i += 1) {
+        if (friend.username === messagesRender[i].username) {
+          return
+        }
+      }
+      this.$store.commit(ADD_MESSAGE, friend)
     },
     deleteFriend() {
       this.isDialogRender = false

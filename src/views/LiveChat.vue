@@ -1,9 +1,9 @@
 <template>
   <div>
-    <ChatNav @nav-change="navNumber=$event"></ChatNav>
-    <ChatAside :chatAsideStyle="chatAsideStyle" :navNumber="navNumber"></ChatAside>
+    <ChatNav></ChatNav>
+    <ChatAside :chatAsideStyle="chatAsideStyle" ></ChatAside>
     <span :class="$style.drag_border" v-drag draggable="false"></span>
-    <ChatMain :navNumber="navNumber"></ChatMain>
+    <ChatMain></ChatMain>
   </div>
 </template>
 
@@ -41,8 +41,7 @@ directives: {
 
 data() {
   return {
-    chatAsideStyle: '300px',
-    navNumber: 1
+    chatAsideStyle: '300px'
   }
 },
 mounted() {

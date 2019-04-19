@@ -18,10 +18,11 @@ export default {
     chatAsideStyle: {
       type: String,
       required: true
-    },
-    navNumber: {
-      type: Number,
-      default: 1
+    }
+  },
+  computed: {
+    navNumber() {
+      return this.$store.state.Chat.navNumber
     }
   }
 
