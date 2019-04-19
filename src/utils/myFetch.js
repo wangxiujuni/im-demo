@@ -1,3 +1,4 @@
+const queryString = require('querystring')
 
 export const myFetch = {
   post(url, body) {
@@ -27,8 +28,9 @@ export const myFetch = {
       body: JSON.stringify(body)
     }).then(res => res.json())
   },
-  get(url) {
-    return fetch(url, {
+  get(url, query) {
+    const queryStr = queryString.stringify(query)
+    return fetch(`${url}?${queryStr}`, {
       method: 'get',
       mode: 'cors',
       credentials: 'include'

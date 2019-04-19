@@ -32,7 +32,8 @@ export default {
   display: block;
   width: 100%;
   height: 1.5em;
-  border: solid 1px rgb(137, 137, 137);
+  border: solid 2px rgb(126, 149, 192);
+  margin-top: 1px;
   font-size: 26px;
 }
 .search {

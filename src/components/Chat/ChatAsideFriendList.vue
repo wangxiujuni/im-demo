@@ -24,14 +24,15 @@
       <button :class="$style.button" @click="isDialogRender=false">取消</button>
     </div>
 
-    <BaseAlert :isRender="baseAlert.isRender" :type="baseAlert.type" :message="baseAlert.message"></BaseAlert>
+    <BaseAlert :isRender="alert.isRender" :type="alert.type" :message="alert.message"></BaseAlert>
   </div>
 </template>
 
 <script>
-import { DELETE_FRIEND } from '@/api/api'
 import ChatAsideItem from './ChatAsideItem'
 import BaseAlert from '@/common/BaseAlert'
+import { FRIEND_DELETE } from '@/api/api'
+import { LOAD_USER } from './module'
 
 
 export default {
@@ -43,10 +44,10 @@ export default {
     return {
       isDialogRender: false,
       dialogData: {},
-      baseAlert: {
+      alert: {
         type: true,
         isRender: false,
-        message: '删除好友成功！'
+        message: ''
       }
     }
   },
@@ -56,19 +57,20 @@ export default {
       this.isDialogRender = true
     },
     deleteFriend() {
-      this.$fetch.delete(DELETE_FRIEND, { username: this.dialogData.username }).then(res => {
-        res.code = res.code || 2
-        this.isDialogRender = false
-        this.baseAlert.isRender = true
-        setTimeout(() => {
-          this.baseAlert.isRender = false
-          this.baseAlert.type = true
-          this.baseAlert.message = '删除好友成功！'
-        }, 2000)
-        if (res.code !== 0) {
-          this.baseAlert.type = false
-          this.baseAlert.message = '删除好友失败,服务器出现错误！'
+      this.isDialogRender = false
+      this.$fetch.delete(FRIEND_DELETE, { username: this.dialogData.username }).then(res => {
+        if (res.code === 0) {
+          this.alert.type = true
+        } else {
+          this.alert.type = false
         }
+        this.alert.message = res.message
+        this.alert.isRender = true
+        setTimeout(() => {
+          this.alert.message = ''
+          this.alert.isRender = false
+        }, 2000)
+        this.$store.dispatch(LOAD_USER)
       })
     }
   }

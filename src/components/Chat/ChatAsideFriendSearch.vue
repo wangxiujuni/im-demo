@@ -10,35 +10,71 @@
       :username="friend.username"
       :key="index"
     >
-      <button :class="slotProps.moduleStyle.button">加为好友</button>
+      <button :class="slotProps.moduleStyle.button" @click="addFriend({username:friend.username})">加为好友</button>
     </ChatAsideItem>
+    <BaseAlert :type="alert.type" :message="alert.message" :isRender="alert.isRender"></BaseAlert>
   </div>
 </template>
 
 <script>
-import BaseSearch from '@/common/BaseSearch'
+
 import ChatAsideItem from './ChatAsideItem'
-import { SEARCH_FRIEND } from '@/api/api'
+import BaseSearch from '@/common/BaseSearch'
+import BaseAlert from '@/common/BaseAlert'
+import { FRIEND_SEARCH, FRIEND_ADD } from '@/api/api'
+import { LOAD_USER } from './module'
+
 
 export default {
   components: {
     BaseSearch,
+    BaseAlert,
     ChatAsideItem
   },
   data() {
     return {
-      friendsRender: []
+      friendsRender: [],
+      alert: {
+        type: false,
+        message: '',
+        isRender: false
+      }
     }
   },
   methods: {
     searchFromName(payload) {
-      this.$fetch.post(SEARCH_FRIEND, payload).then(
+      this.$fetch.get(FRIEND_SEARCH, payload).then(
         res => {
-          console.log(res)
-
-          this.friendsRender = res
+          if (res.code === 0) {
+            this.friendsRender = res.result
+          } else {
+            this.friendsRender = []
+            this.alert.type = false
+            this.alert.message = res.message
+            this.alert.isRender = true
+            setTimeout(() => {
+              this.alert.message = ''
+              this.alert.isRender = false
+            }, 2000)
+          }
         }
       )
+    },
+    addFriend(payload) {
+      this.$fetch.post(FRIEND_ADD, payload).then(res => {
+        if (res.code === 0) {
+          this.alert.type = true
+        } else {
+          this.alert.type = false
+        }
+        this.alert.message = res.message
+        this.alert.isRender = true
+        setTimeout(() => {
+          this.alert.message = ''
+          this.alert.isRender = false
+        }, 2000)
+        this.$store.dispatch(LOAD_USER)
+      })
     }
   }
 }

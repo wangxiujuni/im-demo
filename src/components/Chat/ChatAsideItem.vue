@@ -68,6 +68,9 @@ export default {
   background: rgb(126, 149, 192);
   opacity: 0;
 }
+.button:hover{
+  background: rgb(91, 107, 138)
+}
 .title {
   margin-top: 0.7em;
 }
