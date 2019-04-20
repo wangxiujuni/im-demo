@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1 :class="$style.title">{{friendData.petname}}</h1>
+  <div v-if="friendData">
+    <h1 :class="$style.title" >{{friendData.petname}}</h1>
     <main ref="main" :class="$style.main">
       <ChatMainChattingSession
         v-for="(item,index) in renderSessions"
@@ -15,7 +15,7 @@
 <script>
 import ChatMainChattingInput from './ChatMainChattingInput'
 import ChatMainChattingSession from './ChatMainChattingSession'
-import { CHAT_MESSAGE } from '@/api/api.js'
+
 
 export default {
   components: {
@@ -33,14 +33,8 @@ export default {
       return this.$store.state.Chat.messagesRender[this.$store.state.Chat.messageClickIndex]
     }
   },
-  mounted() {
-    this.ws = new WebSocket(CHAT_MESSAGE)
-    this.ws.onmessage = data => {
-      console.log(data)
-    }
-  },
   methods: {
-    // 渲染列表
+    // 将消息推入渲染列表
     pushSessions(data) {
       const sessionData = {
         content: data,
@@ -49,7 +43,7 @@ export default {
       }
       this.renderSessions.push({ ...sessionData })
     },
-    // 控制滚动
+    // 控制滚动使其满屏时始终滚动到最下
     scrollPosition() {
       this.$nextTick(() => { this.$refs.main.scrollTop = 10000 })
     },

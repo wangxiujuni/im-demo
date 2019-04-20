@@ -8,6 +8,7 @@
       spellcheck="false"
       autocomplete="off"
       @input="$emit('input',$event.target.value)"
+      @keyup.enter="$emit('go-submit')"
     >
     <span :class="$style.warn">{{warn}}</span>
   </div>
@@ -50,7 +51,7 @@ export default {
 }
 .warn {
   position: absolute;
-  color:red;
+  color: red;
   font-size: 13px;
   top: 15px;
   right: 35px;

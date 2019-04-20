@@ -21,6 +21,7 @@
       :placeholder="placeholder.repeat"
       :warn="repeatWarn"
       @input="validate(regExp.repeat)"
+      @go-submit="goSubmit"
     ></UserInput>
     <UserButton button-content="注册" :class="buttonClass" :warn="buttonWarn" @click="goSubmit"></UserButton>
   </div>

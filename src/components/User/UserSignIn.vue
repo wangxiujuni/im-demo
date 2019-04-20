@@ -14,6 +14,7 @@
       :placeholder="placeholder.password"
       :warn="passwordWarn"
       @input="validate(regExp.password)"
+      @go-submit="goSubmit"
     ></UserInput>
     <UserButton button-content="登录" :class="buttonClass" :warn="buttonWarn" @click="goSubmit"></UserButton>
   </div>

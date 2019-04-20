@@ -1,12 +1,15 @@
 import { myFetch } from '@/utils/myFetch'
 import { GET_USERDATA } from '@/api/api'
 
+
 export const SET_USER = 'SET_USER'
 export const SET_NAVNUMBER = 'SET_NAVNUMBER'
 export const LOAD_USER = 'LOAD_USER'
 export const ADD_MESSAGE = 'ADD_MESSAGE'
 export const DELETE_MESSAGE = 'DELETE_MESSAGE'
 export const SET_CLICKINDEX = 'SET_CLICKINDEX'
+export const PUSH_FRIENDSESSION = 'PUSH_FRIENDSESSION'
+export const PUSH_MYSESSION = 'PUSH_FRIENDSESSION'
 
 const store = {
   state: {
@@ -35,7 +38,7 @@ const store = {
       state.navNumber = payload
     },
     [ADD_MESSAGE](state, friendsData) {
-      state.messagesRender.unshift(friendsData)
+      state.messagesRender.unshift({ ...friendsData, chattingData: [] })
     },
     [DELETE_MESSAGE](state, username) {
       let deleteIndex
@@ -48,6 +51,20 @@ const store = {
     },
     [SET_CLICKINDEX](state, index) {
       state.messageClickIndex = index
+    },
+    [PUSH_FRIENDSESSION](state, chattingData) {
+      state.messagesRender.forEach(message => {
+        if (message.username === chattingData.sender) {
+          message.chattingData.push(chattingData)
+        }
+      })
+    },
+    [PUSH_MYSESSION](state, sessionData) {
+      state.messagesRender.forEach(message => {
+        if (message.username === sessionData.sendTarget) {
+          message.chattingData.push(sessionData)
+        }
+      })
     }
   },
   actions: {
