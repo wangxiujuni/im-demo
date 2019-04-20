@@ -8,7 +8,7 @@
       :avatarUrl="friend.avatarUrl"
       :username="friend.username"
       :key="index"
-      @click.native="sendMessage(friend)"
+      @click.native="sendSession(friend)"
     >
       <svg
         :class="slotProps.moduleStyle.icon"
@@ -33,7 +33,7 @@
 import ChatAsideItem from './ChatAsideItem'
 import BaseAlert from '@/common/BaseAlert'
 import { FRIEND_DELETE } from '@/api/api'
-import { LOAD_USER, ADD_MESSAGE, SET_NAVNUMBER } from './module'
+import { LOAD_USER, ADD_SESSION, SET_NAVNUMBER, SET_CLICKFRIEND } from './module'
 
 
 export default {
@@ -57,15 +57,13 @@ export default {
       this.dialogData = payload
       this.isDialogRender = true
     },
-    sendMessage(friend) {
+    sendSession(friend) {
       this.$store.commit(SET_NAVNUMBER, 1)
-      const { messagesRender } = this.$store.state.Chat
-      for (let i = 0; i < messagesRender.length; i += 1) {
-        if (friend.username === messagesRender[i].username) {
-          return
-        }
+      const { sessionsRender } = this.$store.state.Chat
+      if (!(friend.username in sessionsRender)) {
+        this.$store.commit(ADD_SESSION, friend)
       }
-      this.$store.commit(ADD_MESSAGE, friend)
+      this.$store.commit(SET_CLICKFRIEND, friend.username)
     },
     deleteFriend() {
       this.isDialogRender = false

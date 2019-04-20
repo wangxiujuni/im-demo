@@ -1,23 +1,23 @@
 import { myFetch } from '@/utils/myFetch'
 import { GET_USERDATA } from '@/api/api'
-
+import Vue from 'vue'
 
 export const SET_USER = 'SET_USER'
 export const SET_NAVNUMBER = 'SET_NAVNUMBER'
 export const LOAD_USER = 'LOAD_USER'
-export const ADD_MESSAGE = 'ADD_MESSAGE'
-export const DELETE_MESSAGE = 'DELETE_MESSAGE'
-export const SET_CLICKINDEX = 'SET_CLICKINDEX'
-export const PUSH_FRIENDSESSION = 'PUSH_FRIENDSESSION'
-export const PUSH_MYSESSION = 'PUSH_FRIENDSESSION'
+export const ADD_SESSION = 'ADD_SESSION'
+export const DELETE_SESSION = 'DELETE_SESSION'
+export const SET_CLICKFRIEND = 'SET_CLICKFRIEND'
+export const PUSH_FRIENDMESSAGE = 'PUSH_FRIENDMESSAGE'
+export const PUSH_MYMESSAGE = 'PUSH_MYMESSAGE'
 
 const store = {
   state: {
     user: {},
     navNumber: 1,
-    messagesRender: [],
-    // 储存点击的message在render中的索引
-    messageClickIndex: 0
+    sessionsRender: {},
+    // 储存点击的session的key
+    sessionClickFriend: ''
   },
   getters: {
     myAvatarStyle(state, getters) {
@@ -37,34 +37,21 @@ const store = {
     [SET_NAVNUMBER](state, payload) {
       state.navNumber = payload
     },
-    [ADD_MESSAGE](state, friendsData) {
-      state.messagesRender.unshift({ ...friendsData, chattingData: [] })
+    [ADD_SESSION](state, friendsData) {
+      Vue.set(state.sessionsRender, friendsData.username, { ...friendsData, chattingData: [] })
+      // state.sessionsRender.unshift({ ...friendsData, chattingData: [] })
     },
-    [DELETE_MESSAGE](state, username) {
-      let deleteIndex
-      state.messagesRender.forEach((message, index) => {
-        if (message.username === username) {
-          deleteIndex = index
-        }
-      })
-      state.messagesRender.splice(deleteIndex, 1)
+    [DELETE_SESSION](state, username) {
+      Vue.delete(state.sessionsRender, username)
     },
-    [SET_CLICKINDEX](state, index) {
-      state.messageClickIndex = index
+    [SET_CLICKFRIEND](state, friendUsername) {
+      state.sessionClickFriend = friendUsername
     },
-    [PUSH_FRIENDSESSION](state, chattingData) {
-      state.messagesRender.forEach(message => {
-        if (message.username === chattingData.sender) {
-          message.chattingData.push(chattingData)
-        }
-      })
+    [PUSH_FRIENDMESSAGE](state, receiveData) {
+      state.sessionsRender[receiveData.sender].chattingData.push(receiveData)
     },
-    [PUSH_MYSESSION](state, sessionData) {
-      state.messagesRender.forEach(message => {
-        if (message.username === sessionData.sendTarget) {
-          message.chattingData.push(sessionData)
-        }
-      })
+    [PUSH_MYMESSAGE](state, sendData) {
+      state.sessionsRender[sendData.sendTarget].chattingData.push(sendData)
     }
   },
   actions: {

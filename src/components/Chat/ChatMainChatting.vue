@@ -2,54 +2,59 @@
   <div v-if="friendData">
     <h1 :class="$style.title" >{{friendData.petname}}</h1>
     <main ref="main" :class="$style.main">
-      <ChatMainChattingSession
-        v-for="(item,index) in renderSessions"
+      <ChatMainChattingMessage
+        v-for="(item,index) in renderMessages"
         :key="index"
-        :sessionData="item"
-      >{{index}}</ChatMainChattingSession>
+        :MessageData="item"
+      >{{index}}</ChatMainChattingMessage>
     </main>
-    <ChatMainChattingInput @send-content="pushSessions($event);scrollPosition();sendMessage()"></ChatMainChattingInput>
+    <ChatMainChattingInput @send-content="pushMessages($event);scrollPosition();sendMessage($event)"></ChatMainChattingInput>
   </div>
 </template>
 
 <script>
 import ChatMainChattingInput from './ChatMainChattingInput'
-import ChatMainChattingSession from './ChatMainChattingSession'
+import ChatMainChattingMessage from './ChatMainChattingMessage'
+import { PUSH_MYMESSAGE } from './module'
 
 
 export default {
   components: {
     ChatMainChattingInput,
-    ChatMainChattingSession
-  },
-  data() {
-    return {
-      renderSessions: []
-
-    }
+    ChatMainChattingMessage
   },
   computed: {
     friendData() {
-      return this.$store.state.Chat.messagesRender[this.$store.state.Chat.messageClickIndex]
+      return this.$store.state.Chat.sessionsRender[this.$store.state.Chat.sessionClickFriend]
+    },
+    renderMessages() {
+      return this.$store.state.Chat.sessionsRender.chattingData
     }
   },
   methods: {
     // 将消息推入渲染列表
-    pushSessions(data) {
-      const sessionData = {
+    pushMessages(data) {
+      const messageData = {
         content: data,
         sendTarget: this.friendData.username,
         isMine: true
       }
-      this.renderSessions.push({ ...sessionData })
+      this.$store.commit(PUSH_MYMESSAGE, { ...messageData })
     },
     // 控制滚动使其满屏时始终滚动到最下
     scrollPosition() {
       this.$nextTick(() => { this.$refs.main.scrollTop = 10000 })
     },
     // 发送websocket
-    sendMessage() {
+    sendMessage(data) {
+      console.log(this.friendData.username)
 
+      const messageData = {
+        content: data,
+        sendTarget: this.friendData.username,
+        isMine: true
+      }
+      this.$parent.ws.send(JSON.stringify(messageData))
     }
   }
 }

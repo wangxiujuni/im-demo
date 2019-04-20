@@ -5,10 +5,9 @@
 </template>
 
 <script>
-import WebSocket from 'isomorphic-ws'
 import ChatMainChatting from './ChatMainChatting'
 import { CHAT_MESSAGE } from '@/api/api'
-import { ADD_MESSAGE, PUSH_FRIENDSESSION } from './module'
+import { ADD_SESSION, PUSH_FRIENDMESSAGE } from './module'
 
 export default {
   components: {
@@ -18,32 +17,40 @@ export default {
     navNumber() {
       return this.$store.state.Chat.navNumber
     },
-    messagesRender() {
-      return this.$store.state.Chat.messagesRender
+    sessionsRender() {
+      return this.$store.state.Chat.sessionsRender
     }
   },
   mounted() {
     this.ws = new WebSocket(CHAT_MESSAGE)
+    this.ws.onopen = () => {
+      console.log('ws open!')
+    }
     // 消息分发
-    this.ws.onmessage = data => {
+    this.ws.onmessage = event => {
+      const data = JSON.parse(event.data)
+      console.log('receive', data)
+
       // 判断消息栏中是否有该消息
-      let isExist = false
-      this.messagesRender.forEach(message => {
-        if (message.username === data.sender) {
-          isExist = true
-        }
-      })
-      // 如果aside消息栏中没有消息，则取到sender的朋友数据，将其添加到aside
-      if (this.messagesRender.length === 0 || !isExist) {
+      const isExist = data.sender in this.sessionsRender
+      // this.sessionsRender.forEach(session => {
+      //   if (session.username === data.sender) {
+      //     isExist = true
+      //   }
+      // })
+      // 如果aside中没有消息，则取到sender的朋友数据，将其添加到aside
+      if (Object.keys(this.sessionsRender).length === 0 || !isExist) {
         let senderData
-        this.$store.getter.friendsData.forEach(friend => {
+        this.$store.getters.friendsData.forEach(friend => {
+          console.log(friend, data)
+
           if (friend.username === data.sender) {
             senderData = friend
           }
         })
-        this.$store.commit(ADD_MESSAGE, senderData)
+        this.$store.commit(ADD_SESSION, senderData)
       }
-      this.$store.dispatch(PUSH_FRIENDSESSION, data)
+      this.$store.commit(PUSH_FRIENDMESSAGE, data)
     }
   }
 }

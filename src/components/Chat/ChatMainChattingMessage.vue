@@ -6,7 +6,7 @@
       <div
         :class="$style.content"
         dir="auto"
-        v-text="sessionData.content"
+        v-text="messageData.content"
       ></div>
     </div>
   </div>
@@ -15,16 +15,16 @@
 <script>
 export default {
   props: {
-    sessionData: {
+    messageData: {
       type: Object
     }
   },
   computed: {
     floatRight() {
-      return this.sessionData.isMine ? 'float:right' : 'float:left'
+      return this.messageData.isMine ? 'float:right' : 'float:left'
     },
     messageDirection() {
-      return this.sessionData.isMine ? 'rtl' : 'ltr'
+      return this.messageData.isMine ? 'rtl' : 'ltr'
     }
   }
 }
