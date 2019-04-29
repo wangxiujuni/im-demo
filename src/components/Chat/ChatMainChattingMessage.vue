@@ -1,8 +1,8 @@
 <template>
   <div>
-    <span :class="$style.avatar" :style="floatRight"></span>
+    <span :class="$style.avatar" :style="floatRightAvatar"></span>
     <div :class="$style.message" :style="floatRight" :dir="messageDirection">
-      <a :class="$style.name">通信工程</a>
+      <a :class="$style.name">{{messageUserData.petname}}</a>
       <div
         :class="$style.content"
         dir="auto"
@@ -25,6 +25,28 @@ export default {
     },
     messageDirection() {
       return this.messageData.isMine ? 'rtl' : 'ltr'
+    },
+    messageUserData() {
+      if ('sendTarget' in this.messageData) {
+        return this.$store.getters.userData
+      }
+      let friendData
+      this.$store.getters.friendsData.forEach(friend => {
+        if (friend.username === this.messageData.sender) {
+          friendData = friend
+        }
+      })
+      return friendData
+    },
+    floatRightAvatar() {
+      const styleObj = {}
+      if (this.messageData.isMine) {
+        styleObj.float = 'right'
+      } else {
+        styleObj.float = 'left'
+      }
+      styleObj.background = `url(${this.messageUserData.avatarUrl})`
+      return styleObj
     }
   }
 }
@@ -37,7 +59,6 @@ export default {
   height: 4em;
   vertical-align: top;
   border-radius: 50%;
-  background: url("@/assets/userIcon.jpg");
 }
 .name {
   display: block;

@@ -5,10 +5,10 @@
       <ChatMainChattingMessage
         v-for="(item,index) in renderMessages"
         :key="index"
-        :MessageData="item"
-      >{{index}}</ChatMainChattingMessage>
+        :messageData="item"
+      >{{scrollPosition()}}</ChatMainChattingMessage>
     </main>
-    <ChatMainChattingInput @send-content="pushMessages($event);scrollPosition();sendMessage($event)"></ChatMainChattingInput>
+    <ChatMainChattingInput @send-content="pushMessages($event);sendMessage($event)"></ChatMainChattingInput>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
       return this.$store.state.Chat.sessionsRender[this.$store.state.Chat.sessionClickFriend]
     },
     renderMessages() {
-      return this.$store.state.Chat.sessionsRender.chattingData
+      return this.friendData.chattingData
     }
   },
   methods: {

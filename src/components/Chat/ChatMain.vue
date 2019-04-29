@@ -7,7 +7,7 @@
 <script>
 import ChatMainChatting from './ChatMainChatting'
 import { CHAT_MESSAGE } from '@/api/api'
-import { ADD_SESSION, PUSH_FRIENDMESSAGE } from './module'
+import { ADD_SESSION, PUSH_FRIENDMESSAGE, SET_CLICKFRIEND } from './module'
 
 export default {
   components: {
@@ -31,7 +31,7 @@ export default {
       const data = JSON.parse(event.data)
       console.log('receive', data)
 
-      // 判断消息栏中是否有该消息
+      // 判断会话栏中是否有该消息
       const isExist = data.sender in this.sessionsRender
       // this.sessionsRender.forEach(session => {
       //   if (session.username === data.sender) {
@@ -51,6 +51,7 @@ export default {
         this.$store.commit(ADD_SESSION, senderData)
       }
       this.$store.commit(PUSH_FRIENDMESSAGE, data)
+      this.$store.commit(SET_CLICKFRIEND, data.sender)
     }
   }
 }
