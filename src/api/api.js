@@ -13,3 +13,5 @@ export const GET_USERDATA = `${API_HOSTNAME}/users/getdata`
 export const FRIEND_DELETE = `${API_HOSTNAME}/users/deletefriend`
 export const FRIEND_SEARCH = `${API_HOSTNAME}/friends/search`
 export const FRIEND_ADD = `${API_HOSTNAME}/friends/add`
+export const UPDATE_PASSWORD = `${API_HOSTNAME}/users/updatepassword`
+export const SYNC_SESSION = `${API_HOSTNAME}/users/syncsession`

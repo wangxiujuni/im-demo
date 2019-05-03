@@ -38,6 +38,7 @@ export default {
   height: 4em;
   padding: .3em;
   overflow: hidden;
+  background: white;
 }
 .wrapper:hover {
   background: rgb(235, 235, 237);

@@ -13,24 +13,33 @@
         <use xlink:href="#icon-icon_signal"></use>
       </svg>
     </label>
-    <div :class="$style.avatar" :style="[selected,$store.getters.myAvatarStyle]" @click="showOptions=!showOptions" ></div>
-    <ChatNavOptions v-if="showOptions" @click="showOptions=!showOptions"></ChatNavOptions>
+    <div
+      :class="$style.avatar"
+      :style="[selected,$store.getters.myAvatarStyle]"
+      @click="isShowOptions=!isShowOptions"
+    ></div>
+    <ChatNavOptions v-if="isShowOptions" @click="showDialog"></ChatNavOptions>
+    <ChatNavDialog v-if="isShowDialog" :dialogProp="dialogProp" @close="isShowDialog=!isShowDialog"></ChatNavDialog>
   </div>
 </template>
 
 <script>
 import ChatNavOptions from './ChatNavOptions.vue'
+import ChatNavDialog from './ChatNavDialog'
 import { SET_NAVNUMBER } from './module'
 
 
 export default {
   components: {
-    ChatNavOptions
+    ChatNavOptions,
+    ChatNavDialog
   },
   data() {
     return {
       navNumber: 1,
-      showOptions: false
+      isShowOptions: false,
+      isShowDialog: false,
+      dialogProp: ''
     }
   },
   computed: {
@@ -52,6 +61,11 @@ export default {
   methods: {
     setNavNumber() {
       this.$store.commit(SET_NAVNUMBER, this.navNumber)
+    },
+    showDialog(payload) {
+      this.dialogProp = payload
+      this.isShowOptions = !this.isShowOptions
+      this.isShowDialog = true
     }
 
   }

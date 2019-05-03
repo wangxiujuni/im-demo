@@ -4,6 +4,7 @@ import Vue from 'vue'
 
 export const SET_USER = 'SET_USER'
 export const SET_NAVNUMBER = 'SET_NAVNUMBER'
+export const SET_SESSIONSRENDER = 'SET_SESSIONSRENDER'
 export const LOAD_USER = 'LOAD_USER'
 export const ADD_SESSION = 'ADD_SESSION'
 export const DELETE_SESSION = 'DELETE_SESSION'
@@ -34,6 +35,9 @@ const store = {
     [SET_USER](state, payload) {
       state.user = payload
     },
+    [SET_SESSIONSRENDER](state, payload) {
+      state.sessionsRender = payload
+    },
     [SET_NAVNUMBER](state, payload) {
       state.navNumber = payload
     },
@@ -58,9 +62,14 @@ const store = {
     [LOAD_USER](context) {
       myFetch.get(GET_USERDATA).then(res => {
         context.commit(SET_USER, res)
+        const observe = Vue.observable(JSON.parse(res.renderSessions))
+        console.log(observe, res)
+
+        context.commit(SET_SESSIONSRENDER, observe)
       })
     }
   }
 }
+
 
 export default store

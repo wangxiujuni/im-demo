@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div :class="$style.without"></div>
     <ChatAsideItem
       v-for="(session,index) in sessionsRender"
       v-slot="slotProps"
@@ -48,4 +49,11 @@ export default {
 </script>
 
 <style module lang="postcss">
+.without::after{
+  content: '没有内容,请选择好友开始会话';
+  position: absolute;
+  z-index: -1;
+  color:  rgb(126, 149, 192);
+
+}
 </style>
